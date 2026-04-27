@@ -132,6 +132,28 @@ vite.config.js
 - `npm run dev:express` Start Express only
 - `npm run build` Build frontend assets
 
+## Troubleshooting
+
+### Windows `spawn EINVAL` When Running Dev Services
+
+Older generated projects could fail during `npm run dev` with:
+
+```text
+Error: spawn EINVAL
+syscall: spawn
+code: EINVAL
+errno: -4071
+```
+
+The failure came from `scripts/dev.js` spawning the local dev services in a way that Windows could reject. It could also show `ENOENT` when trying to spawn `npm` directly, or a `DEP0190` warning when testing `shell: true` with args.
+
+Current generated projects avoid that crash by:
+
+- Windows: running npm commands through `cmd.exe /d /s /c` and running PHP as `php.exe`
+- macOS/Linux: running `npm` and `php` directly
+
+After updating to the fixed template, `npm run dev` should start Laravel, Vite, and Express together without diagnostics errors in `scripts/dev.js`.
+
 ## CI/CD: Publish to npm on Tags
 
 This repository includes GitHub Actions automation in `.github/workflows/publish-npm.yml`.

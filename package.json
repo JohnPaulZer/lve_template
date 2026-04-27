@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "test": "node --check src/index.js && node src/index.js --help"
+    "test": "node --check src/index.js && node src/index.js --help && node --test test/generated-dev.test.js"
   },
   "files": [
     "src",
