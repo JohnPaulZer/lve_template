@@ -1,208 +1,173 @@
-# Laravel Vue Express Template CLI tool
+# Laravel Vue Express Template CLI
 
-`lve-temp-jpz` is a CLI tool that creates a ready-to-use Laravel, Vue, and Express starter project.
+`lve-temp-jpz` is a CLI that scaffolds one Laravel-style project with Vue and Express already wired in.
 
-Instead of manually creating the same Laravel folders, Vue setup, Express server, routes, and health-check files every time you start a project, you can run one command and get a clean application structure.
+It helps you skip repetitive setup and start with a ready project shape, including health-check routes and a shared local dev flow.
 
-It generates one Laravel-style project with:
+## What You Get
 
-- Laravel
-- Vue
-- Express
-- Vite
-- Laravel API health-check route
-- Express API health-check route
+- Laravel 12 app structure
+- Vue 3 frontend inside `resources/js`
+- Express API server inside `server`
+- Vite integration for the frontend
+- Health-check endpoints for Laravel and Express
+- Local scripts to run Laravel, Vite, and Express together
 
-This template is useful if you want to start a Laravel project that already has Vue for the frontend and Express for a separate Node API.
+## Requirements
 
-## What It Creates
-
-The CLI creates one project with the usual Laravel structure:
-
-- `app` - Laravel controllers, providers, and services
-- `bootstrap` - Laravel application bootstrap files
-- `config` - Laravel application config
-- `public` - Laravel front controller and public files
-- `resources` - Vue app, CSS, and Blade view
-- `routes` - Laravel web, API, and console routes
-- `scripts` - local development script that starts all services
-- `server` - Express API server
-- `storage` - Laravel storage folders
-
-Vue is placed inside `resources/js`, so it works like a normal Laravel frontend.
-
-Express is placed inside `server`, so it stays in the same project without creating a separate app folder.
-
-The template also includes simple health-check examples so you can confirm Laravel, Vue, and Express are wired up.
+- Node.js 18+
+- PHP 8.2+
+- Composer
 
 ## Quick Start
 
-Create a new project folder:
+Create a new folder and scaffold into it:
 
 ```bash
 npx lve-temp-jpz my-app
-```
-
-`my-app` is the name of the folder that will be created. You can replace it with any project name you want.
-
-You can also create the template inside the current folder without making another folder:
-
-```bash
-mkdir my-app
-cd my-app
-npx lve-temp-jpz
-```
-
-When you do not add a project name, the template files are created directly in the folder where you run the command.
-
-If you created a new project folder, open it:
-
-```bash
 cd my-app
 ```
 
-Install PHP dependencies:
+Install dependencies:
 
 ```bash
 composer install
+npm install
 ```
 
-Create the environment file:
+Create your environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-Create the Laravel app key:
+Windows CMD:
+
+```bat
+copy .env.example .env
+```
+
+Generate app key and start development:
 
 ```bash
 php artisan key:generate
-```
-
-Install Node dependencies:
-
-```bash
-npm install
-```
-
-Start Laravel, Vue, and Express:
-
-```bash
 npm run dev
 ```
 
-Laravel and Vue will run at:
+Default URLs:
 
-```text
-http://localhost:8000
+- Laravel + Vue: `http://localhost:8000`
+- Express API: `http://localhost:5000`
+
+## Health Checks
+
+- Laravel: `http://localhost:8000/api/health`
+- Express: `http://localhost:5000/api/health`
+
+## CLI Usage
+
+Run with `npx`:
+
+```bash
+npx lve-temp-jpz [project-name] [options]
 ```
 
-The Express API will run at:
-
-```text
-http://localhost:5000
-```
-
-The Laravel health-check route will be available at:
-
-```text
-http://localhost:8000/api/health
-```
-
-The Express health-check route will be available at:
-
-```text
-http://localhost:5000/api/health
-```
-
-## Using Global Install
-
-You can also install the CLI globally:
+Or install globally:
 
 ```bash
 npm install -g lve-temp-jpz
 ```
 
-The `-g` means global. This installs the CLI tool on your computer instead of inside one project folder.
-
-After global installation, npm makes the `lve` and `laravue` commands available in your terminal. This means you can run the command from any folder without using `npx`.
-
-Then create a project with:
+Then use any of the provided commands:
 
 ```bash
 lve my-app
-```
-
-or:
-
-```bash
 laravue my-app
 ```
 
-## Command Format
+### Options
 
-```bash
-npx lve-temp-jpz [project-name]
-```
+- `-h, --help` Show help
+- `-f, --force` Allow scaffolding into a non-empty directory
 
 Examples:
 
 ```bash
-npx lve-temp-jpz my-lve-project
-```
-
-```bash
 npx lve-temp-jpz
+npx lve-temp-jpz my-app
+npx lve-temp-jpz . --force
 ```
 
-If you add a project name, the CLI creates a folder with that name and puts the template files inside it.
+Notes:
 
-If you do not add a project name, the CLI creates the template in the folder where you run the command.
+- If no project name is provided, files are generated in the current directory.
+- The CLI refuses to scaffold into this CLI package root to prevent accidental overwrite.
 
-For example, this creates the project directly inside `my-app` instead of creating `my-app/my-app`:
-
-```bash
-mkdir my-app
-cd my-app
-npx lve-temp-jpz
-```
-
-Use `npx` when you only want to run the CLI once. Use global install if you want the command available on your computer all the time.
-
-## Generated Folder Structure
+## Generated Project Structure
 
 ```text
 app/
-  Http/
-    Controllers/
-  Providers/
-  Services/
 bootstrap/
 config/
 public/
 resources/
   css/
   js/
-    App.vue
-    app.js
   views/
-    app.blade.php
 routes/
-  api.php
-  console.php
-  web.php
 scripts/
-  dev.js
 server/
-  index.js
 storage/
+artisan
 composer.json
 package.json
 vite.config.js
 ```
 
+## Scripts Inside Generated App
+
+- `npm run dev` Start Laravel, Vite, and Express together
+- `npm run dev:laravel` Start Laravel only
+- `npm run dev:vite` Start Vite only
+- `npm run dev:express` Start Express only
+- `npm run build` Build frontend assets
+
+## CI/CD: Publish to npm on Tags
+
+This repository includes GitHub Actions automation in `.github/workflows/publish-npm.yml`.
+
+Workflow behavior:
+
+- Triggers on tag pushes (`v*` or `*.*.*`)
+- Runs install and tests
+- Verifies tag version matches `package.json` version
+- Publishes to npm with provenance
+
+Required GitHub secret:
+
+- `NPM_TOKEN` (npm automation token)
+
+Release flow:
+
+```bash
+# 1) bump package version
+npm version patch
+
+# 2) push commit and tag
+git push origin main --follow-tags
+```
+
+You can also create tags manually, for example `v1.0.2`, as long as the tag version matches `package.json`.
+
+## Development (This CLI Repo)
+
+Install dependencies and run the built-in test command:
+
+```bash
+npm install
+npm test
+```
+
 ## License
 
-This project is licensed under the MIT License.
-
-That means you can use, copy, modify, and share this CLI tool for personal or commercial projects.
+MIT
