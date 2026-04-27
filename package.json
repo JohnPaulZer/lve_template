@@ -1,6 +1,6 @@
 {
   "name": "lve-temp-jpz",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scaffold one Laravel-style template with Laravel, Vue, and Express.",
   "main": "src/index.js",
   "bin": {
