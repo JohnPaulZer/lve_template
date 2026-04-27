@@ -28,6 +28,14 @@
   ],
   "author": "JohnPaulZer",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnPaulZer/lve_template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JohnPaulZer/lve_template/issues"
+  },
+  "homepage": "https://github.com/JohnPaulZer/lve_template#readme",
   "type": "commonjs",
   "engines": {
     "node": ">=18.0.0"
