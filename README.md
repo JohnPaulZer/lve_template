@@ -45,13 +45,15 @@ npx lve-temp-jpz my-app
 
 `my-app` is the name of the folder that will be created. You can replace it with any project name you want.
 
-You can also run the CLI without a project name:
+You can also create the template inside the current folder without making another folder:
 
 ```bash
+mkdir my-app
+cd my-app
 npx lve-temp-jpz
 ```
 
-When you do not add a project name, the template files are created in the current folder.
+When you do not add a project name, the template files are created directly in the folder where you run the command.
 
 If you created a new project folder, open it:
 
@@ -156,6 +158,14 @@ npx lve-temp-jpz
 If you add a project name, the CLI creates a folder with that name and puts the template files inside it.
 
 If you do not add a project name, the CLI creates the template in the folder where you run the command.
+
+For example, this creates the project directly inside `my-app` instead of creating `my-app/my-app`:
+
+```bash
+mkdir my-app
+cd my-app
+npx lve-temp-jpz
+```
 
 Use `npx` when you only want to run the CLI once. Use global install if you want the command available on your computer all the time.
 
